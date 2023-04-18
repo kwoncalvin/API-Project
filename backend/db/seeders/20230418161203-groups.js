@@ -25,7 +25,7 @@ module.exports = {
         type: 'Online',
         private: 'false',
         city: 'City1',
-        State: 'State1'
+        state: 'State1'
       },
       {
         name: 'Group2',
@@ -33,7 +33,7 @@ module.exports = {
         type: 'In Person',
         private: 'true',
         city: 'City2',
-        State: 'State2'
+        state: 'State2'
       },
       {
         name: 'Group3',
@@ -41,7 +41,7 @@ module.exports = {
         type: 'Online',
         private: 'true',
         city: 'City3',
-        State: 'State3'
+        state: 'State3'
       }
     ], {});
   },
