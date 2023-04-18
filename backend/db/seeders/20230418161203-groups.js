@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     /**
      * Add seed commands here.
      *
@@ -46,7 +46,7 @@ module.exports = {
     ], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     /**
      * Add commands to revert seed here.
      *
