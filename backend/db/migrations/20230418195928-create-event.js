@@ -6,37 +6,43 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Groups', {
+    await queryInterface.createTable('Events', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      organizerId: {
+      venueId: {
+        type: Sequelize.INTEGER
+      },
+      groupId: {
         type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      about: {
-        type: Sequelize.TEXT,
-        allowNull: false
+      description: {
+        type: Sequelize.TEXT
       },
       type: {
-        type: Sequelize.ENUM('In Person', 'Online'),
+        type: Sequelize.ENUM,
         allowNull: false
       },
-      private: {
-        type: Sequelize.BOOLEAN,
+      capacity: {
+        type: Sequelize.INTEGER
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
+      startDate: {
+        type: Sequelize.DATE,
         allowNull: false
       },
-      city: {
-        type: Sequelize.STRING
-      },
-      state: {
-        type: Sequelize.STRING
+      endDate: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -48,10 +54,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    }, options);
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'Groups';
+    options.tableName = 'Events';
     await queryInterface.dropTable(options);
   }
 };
