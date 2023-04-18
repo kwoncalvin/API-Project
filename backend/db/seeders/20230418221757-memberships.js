@@ -17,35 +17,38 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Groups';
+    options.tableName = 'Memberships';
     return queryInterface.bulkInsert(options, [
       {
-        organizerId: 1,
-        name: 'Group1',
-        about: 'about group 1',
-        type: 'Online',
-        private: false,
-        city: 'City1',
-        state: 'State1'
+        userId: 1,
+        groupId: 1,
+        status: 'cohost'
       },
       {
-        organizerId: 2,
-        name: 'Group2',
-        about: 'about group 2',
-        type: 'In Person',
-        private: true,
-        city: 'City2',
-        state: 'State2'
+        userId: 1,
+        groupId: 2,
+        status: 'pending'
       },
       {
-        organizerId: 3,
-        name: 'Group3',
-        about: 'about group 3',
-        type: 'Online',
-        private: true,
-        city: 'City3',
-        state: 'State3'
-      }
+        userId: 2,
+        groupId: 2,
+        status: 'member'
+      },
+      {
+        userId: 2,
+        groupId: 3,
+        status: 'cohost'
+      },
+      {
+        userId: 3,
+        groupId: 1,
+        status: 'pending'
+      },
+      {
+        userId: 3,
+        groupId: 3,
+        status: 'member'
+      },
     ], {});
   },
 
@@ -56,10 +59,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Groups';
+    options.tableName = 'Memberships';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3'] }
+      id: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };
