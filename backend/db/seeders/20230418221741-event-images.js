@@ -17,35 +17,38 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Groups';
+    options.tableName = 'EventImages';
     return queryInterface.bulkInsert(options, [
       {
-        organizerId: 1,
-        name: 'Group1',
-        about: 'about group 1',
-        type: 'Online',
-        private: false,
-        city: 'City1',
-        state: 'State1'
+        eventId: 1,
+        url: 'evimg1.com',
+        preview: true
       },
       {
-        organizerId: 2,
-        name: 'Group2',
-        about: 'about group 2',
-        type: 'In Person',
-        private: true,
-        city: 'City2',
-        state: 'State2'
+        eventId: 1,
+        url: 'evimg2.com',
+        preview: false
       },
       {
-        organizerId: 3,
-        name: 'Group3',
-        about: 'about group 3',
-        type: 'Online',
-        private: true,
-        city: 'City3',
-        state: 'State3'
-      }
+        eventId: 2,
+        url: 'evimg3.com',
+        preview: false
+      },
+      {
+        eventId: 2,
+        url: 'evimg4.com',
+        preview: false
+      },
+      {
+        eventId: 3,
+        url: 'evimg5.com',
+        preview: false
+      },
+      {
+        eventId: 3,
+        url: 'evimg6.com',
+        preview: false
+      },
     ], {});
   },
 
@@ -56,10 +59,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Groups';
+    options.tableName = 'EventImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3'] }
+      url: { [Op.in]: ['evimg1.com', 'evimg2.com', 'evimg3.com', 'evimg4.com', 'evimg5.com', 'evimg6.com'] }
     }, {});
   }
 };
