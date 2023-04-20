@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { Membership } = require('../models');
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     /**
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Group.belongsTo(models.User);
+      Group.belongsTo(models.User, {foreignKey: 'organizerId'});
       Group.hasMany(
         models.Event,
         {foreignKey: 'groupId', onDelete: 'CASCADE',  hooks: true}
@@ -31,7 +32,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Group.init({
-    organizerId: DataTypes.INTEGER,
+    organizerId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
     name: DataTypes.STRING,
     about: DataTypes.TEXT,
     type: {
@@ -43,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Group',
+    modelName: 'Group'
   });
   return Group;
 };
