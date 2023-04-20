@@ -29,5 +29,6 @@ router.get('/', async (req, res, next) => {
     res.json(groups);
 })
 
+router.get('/')
 
 module.exports = router;
