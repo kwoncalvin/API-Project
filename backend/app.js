@@ -75,10 +75,10 @@ app.use((err, _req, res, _next) => {
     res.status(err.status || 500);
     console.error(err);
     res.json({
-      title: err.title || 'Server Error',
-      message: err.message,
-      errors: err.errors,
-      stack: isProduction ? null : err.stack
+      title: isProduction ? undefined : err.title || 'Server Error',
+      message: isProduction ? undefined : err.message,
+      errors: isProduction ? undefined : err.errors,
+      stack: isProduction ? undefined : err.stack
     });
   });
 
