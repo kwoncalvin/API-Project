@@ -29,6 +29,14 @@ router.get('/', async (req, res, next) => {
     res.json(groups);
 })
 
-router.get('/')
+router.get('/groups/current', async (req, res, next) => {
+    const groups = await Group.findAll({
+        include: [{
+            model: Membership,
+            attributes: [],
+            where: {userId: req.user.id}
+        }]
+    })
+})
 
 module.exports = router;
