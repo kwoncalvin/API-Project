@@ -27,7 +27,7 @@ module.exports = {
       {
         groupId: 1,
         url: 'gpimg2.com',
-        preview: false
+        preview: true
       },
       {
         groupId: 2,
