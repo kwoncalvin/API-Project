@@ -54,7 +54,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
             include: [[sequelize.fn("COUNT", sequelize.col('Memberships.id')), "numMembers"],
                 [sequelize.col('GroupImages.url'), 'previewImage']]
         },
-        group: ['Group.id', 'GroupImages.url']
+        group: ['Group.id', 'GroupImages.url'],
+        order: ['id']
     });
     let groups = [];
     for (let group of groups1) {
