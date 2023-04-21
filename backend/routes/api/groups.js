@@ -3,7 +3,7 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 const { Group, Membership, GroupImage, User, Venue } = require('../../db/models');
-const { requireAuth, isOrganizer, groupExists } = require('../../utils/auth');
+const { requireAuth, isOrganizer, groupExists, isOrgOrCo } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -184,6 +184,18 @@ router.delete('/:groupId', requireAuth, groupExists, isOrganizer,
         let group = await Group.findByPk(req.params.groupId);
         await group.destroy();
         res.status(200).json({"message": "Successfully deleted"})
+})
+
+router.get('/:groupId/venues', requireAuth, groupExists, isOrgOrCo,
+    async (req, res, next) => {
+        let venues = await Group.findByPk(req.params.groupId, {
+            include: {
+                model: Venue,
+                attributes: {exclude: ['createdAt', 'updatedAt']}
+            },
+            attributes: []
+        });
+        res.status(200).json(venues);
 })
 
 module.exports = router;

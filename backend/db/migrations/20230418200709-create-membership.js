@@ -28,7 +28,7 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.ENUM('cohost', 'pending', 'member'),
+        type: Sequelize.ENUM('co-host', 'pending', 'member'),
         allowNull: false
       },
       createdAt: {

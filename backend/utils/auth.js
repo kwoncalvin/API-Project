@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Group } = require('../db/models');
+const { User, Group, Membership } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -92,4 +92,27 @@ const groupExists = async (req, _res, next) => {
     return next(err);
 };
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, isOrganizer, groupExists };
+const isOrgOrCo = async (req, _res, next) => {
+  let group = await Group.findByPk(req.params.groupId);
+  let membership = await Membership.findOne({
+    where: {
+      groupId: group.id,
+      userId: req.user.id
+    }
+  })
+  if (req.user.id == group.organizerId || membership.status == 'co-host') return next();
+
+  const err = new Error('Authorization required');
+    err.title = 'Authorization required';
+    err.errors = { message: 'Forbidden' };
+    err.status = 403;
+    return next(err);
+};
+
+module.exports = {
+        setTokenCookie,
+        restoreUser,
+        requireAuth,
+        isOrganizer,
+        groupExists,
+        isOrgOrCo };
