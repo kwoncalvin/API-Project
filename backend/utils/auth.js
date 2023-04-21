@@ -65,7 +65,7 @@ const requireAuth = function (req, _res, next) {
 
     const err = new Error('Authentication required');
     err.title = 'Authentication required';
-    err.errors = { message: 'Authentication required' };
+    // err.errors = { message: 'Authentication required' };
     err.status = 401;
     return next(err);
 };
@@ -87,7 +87,7 @@ const groupExists = async (req, _res, next) => {
 
   const err = new Error("Group couldn't be found");
     err.title = "Group couldn't be found";
-    err.errors = { message: "Group couldn't be found" };
+    err.errors = undefined;
     err.status = 404;
     return next(err);
 };
