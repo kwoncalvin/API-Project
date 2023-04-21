@@ -23,7 +23,7 @@ module.exports = {
         groupId: 1,
         venueId: 1,
         name: 'Event1',
-        type: 'In Person',
+        type: 'In person',
         capacity: '42',
         price: '12',
         startDate: '2023-04-03 08:00:00',
@@ -41,7 +41,7 @@ module.exports = {
         groupId: 1,
         venueId: 2,
         name: 'Event3',
-        type: 'In Person',
+        type: 'In person',
         startDate: '2020-08-22 06:30:00',
         endDate: '2020-08-22 06:31:00'
       },
@@ -57,7 +57,7 @@ module.exports = {
         groupId: 2,
         venueId: 3,
         name: 'Event5',
-        type: 'In Person',
+        type: 'In person',
         startDate: '2021-01-21 02:30:00',
         endDate: '2021-01-21 06:30:00'
       },
