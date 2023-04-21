@@ -3,7 +3,7 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 const { Group, Membership, GroupImage, User, Venue } = require('../../db/models');
-const { requireAuth } = require('../../utils/auth');
+const { requireAuth, isOrganizer, groupExists } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -23,7 +23,7 @@ const validateGroup = [
       .isIn(['Online', 'In person'])
       .withMessage("Type must be 'Online' or 'In person'"),
     check('private')
-      .exists({ checkFalsy: true })
+      .exists({ checkFalsy: false })
       .isBoolean()
       .withMessage("Private must be a boolean"),
     check('city')
@@ -95,7 +95,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     res.status(200).json(groups);
 })
 
-router.get('/:groupId', async (req, res, next) => {
+router.get('/:groupId', groupExists, async (req, res, next) => {
     const group = await Group.findByPk(req.params.groupId, {
         attributes: {
             include: [[sequelize.fn("COUNT", sequelize.col('Memberships.id')), "numMembers"]]
@@ -141,8 +141,42 @@ router.post('/', requireAuth, validateGroup,
             city,
             state
         });
-        return res.json(group)
+        res.status(200).json(group)
 
+})
+
+router.post('/:groupId/images', requireAuth, groupExists, isOrganizer,
+    async (req, res, next) => {
+        const {url, preview} = req.body;
+        const groupImage = await GroupImage.create({
+            groupId: req.params.groupId,
+            url,
+            preview
+        });
+
+        const safeImg = {
+            id: groupImage.id,
+            url: groupImage.url,
+            preview: groupImage.preview
+        };
+
+        return res.json(safeImg);
+})
+
+router.put('/:groupId', requireAuth, groupExists, isOrganizer, validateGroup,
+    async (req, res, next) => {
+        const {name, about, type, private, city, state } = req.body;
+        let group = await Group.findByPk(req.params.groupId);
+        group.set({
+            name,
+            about,
+            type,
+            private,
+            city,
+            state
+        });
+        group = await group.save();
+        res.status(200).json(group);
 })
 
 module.exports = router;
