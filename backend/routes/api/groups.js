@@ -90,7 +90,7 @@ router.get('/:groupId', async (req, res, next) => {
             model: Venue,
             attributes: {exclude: ['createdAt', 'updatedAt']}
         }],
-        group:['GroupImages.id', 'Venues.id']
+        group:['Group.id', 'GroupImages.id', 'Venues.id']
     })
     if (!group) {
         const err = new Error("Group couldn't be found");
