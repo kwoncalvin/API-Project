@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     about: DataTypes.TEXT,
     type: {
       type: DataTypes.ENUM,
-      values: ['Online', 'In Person']
+      values: ['Online', 'In person']
     },
     private: DataTypes.BOOLEAN,
     city: DataTypes.STRING,

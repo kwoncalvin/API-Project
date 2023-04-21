@@ -77,7 +77,7 @@ app.use((err, _req, res, _next) => {
     res.json({
       title: isProduction ? undefined : err.title || 'Server Error',
       message: err.message,
-      errors: isProduction ? undefined : err.errors,
+      errors: err.errors,
       stack: isProduction ? undefined : err.stack
     });
   });

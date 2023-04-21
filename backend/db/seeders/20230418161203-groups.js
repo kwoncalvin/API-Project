@@ -32,7 +32,7 @@ module.exports = {
         organizerId: 2,
         name: 'Group2',
         about: 'about group 2',
-        type: 'In Person',
+        type: 'In person',
         private: true,
         city: 'City2',
         state: 'State2'
