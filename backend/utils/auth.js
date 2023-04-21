@@ -74,9 +74,9 @@ const isOrganizer = async (req, _res, next) => {
   let group = await Group.findByPk(req.params.groupId);
   if (req.user.id == group.organizerId) return next();
 
-  const err = new Error('Authorization required');
+  const err = new Error('Forbidden');
     err.title = 'Authorization required';
-    err.errors = { message: 'Forbidden' };
+    // err.errors = { message: 'Forbidden' };
     err.status = 403;
     return next(err);
 };
@@ -93,20 +93,20 @@ const groupExists = async (req, _res, next) => {
 };
 
 const isOrgOrCo = async (req, _res, next) => {
+  const err = new Error('Forbidden');
+    err.title = 'Authorization required';
+    // err.errors = { message: 'Forbidden' };
+    err.status = 403;
   let group = await Group.findByPk(req.params.groupId);
   let membership = await Membership.findOne({
     where: {
       groupId: group.id,
       userId: req.user.id
     }
-  })
+  });
+  if (!membership) return next(err);
   if (req.user.id == group.organizerId || membership.status == 'co-host') return next();
-
-  const err = new Error('Authorization required');
-    err.title = 'Authorization required';
-    err.errors = { message: 'Forbidden' };
-    err.status = 403;
-    return next(err);
+  return next(err);
 };
 
 module.exports = {
