@@ -2,7 +2,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
-const { Group, Membership, GroupImage, User, Venue } = require('../../db/models');
+const { Group, Membership, GroupImage, User, Venue, Event, Attendance, EventImage } = require('../../db/models');
 const { requireAuth, isOrganizer, groupExists, isOrgOrCo } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -241,6 +241,42 @@ router.post('/:groupId/venues', requireAuth, groupExists, isOrgOrCo, validateVen
             lng: venue.lng
         };
         res.status(200).json(safeVenue);
+})
+
+router.get('/:groupId/events', requireAuth, groupExists,
+    async (req, res, next) => {
+        const events = await Event.findAll({
+            include: [
+            {
+                model: Attendance,
+                where: {status: 'attending'},
+                attributes: [],
+                required: false
+            },
+            {
+                model: EventImage,
+                attributes: [],
+                where: {preview: true},
+                required: false
+            },
+            {
+                model: Group,
+                attributes: ['id', 'name', 'city', 'state']
+            },
+            {
+                model: Venue,
+                attributes: ['id', 'city', 'state']
+            },
+            ],
+            where: {groupId: req.params.groupId},
+            attributes: {
+                include: [[sequelize.fn("COUNT", sequelize.col('Attendances.id')), "numAttending"],
+                    [sequelize.col('EventImages.url'), 'previewImage']],
+                exclude: ['description', 'capacity', 'price', 'createdAt', 'updatedAt']
+            },
+            group: ['Event.id', 'EventImages.url', 'Group.id', 'Venue.id']
+        });
+        res.status(200).json(events);
 })
 
 module.exports = router;
