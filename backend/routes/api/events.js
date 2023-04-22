@@ -43,4 +43,44 @@ router.get('/', async (req, res, next) => {
     res.status(200).json(events);
 })
 
+router.get('/:eventId', async (req, res, next) => {
+    const event = await Event.findByPk(req.params.eventId, {
+        include: [
+        {
+            model: Attendance,
+            where: {status: 'attending'},
+            attributes: [],
+            required: false
+        },
+        {
+            model: EventImage,
+            attributes: [],
+            where: {preview: true},
+            required: false
+        },
+        {
+            model: Group,
+            attributes: ['id', 'name', 'city', 'state']
+        },
+        {
+            model: Venue,
+            attributes: ['id', 'city', 'state']
+        },
+        ],
+        attributes: {
+            include: [[sequelize.fn("COUNT", sequelize.col('Attendances.id')), "numAttending"],
+                [sequelize.col('EventImages.url'), 'previewImage']],
+            exclude: ['description', 'capacity', 'price', 'createdAt', 'updatedAt']
+        },
+        group: ['Event.id', 'EventImages.url', 'Group.id', 'Venue.id']
+    });
+
+    if (!event) {
+        const err = new Error("Event couldn't be found");
+            err.status = 404;
+            return next(err);
+    }
+    res.status(200).json(event);
+})
+
 module.exports = router;
