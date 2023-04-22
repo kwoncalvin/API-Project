@@ -25,7 +25,7 @@ module.exports = {
         name: 'Event1',
         type: 'In person',
         capacity: '42',
-        price: '12',
+        price: 12.00,
         startDate: '2023-04-03 08:00:00',
         endDate: '2023-04-04 02:00:00'
       },

@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['In person', 'Online']
     },
     capacity: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
+    price: DataTypes.FLOAT,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE
   }, {
