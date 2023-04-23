@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Group, Membership } = require('../db/models');
+const { User, Group, Membership, Event, Attendance } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -92,6 +92,17 @@ const groupExists = async (req, _res, next) => {
     return next(err);
 };
 
+const eventExists = async (req, _res, next) => {
+  let event = await Event.findByPk(req.params.eventId);
+  if (event) return next();
+
+  const err = new Error("Event couldn't be found");
+    err.title = "Event couldn't be found";
+    err.errors = undefined;
+    err.status = 404;
+    return next(err);
+};
+
 const isOrgOrCo = async (req, _res, next) => {
   const err = new Error('Forbidden');
     err.title = 'Authorization required';
@@ -109,10 +120,28 @@ const isOrgOrCo = async (req, _res, next) => {
   return next(err);
 };
 
+const isAttendee = async (req, _res, next) => {
+  const attendee = await Attendance.findOne({
+    where: {
+      userId: req.user.id,
+      eventId: req.params.eventId,
+      status: 'attending'
+    }
+  })
+  if (!attendee) {
+    const err = new Error('Forbidden');
+    err.status = 403;
+    return next(err);
+  }
+  return next();
+}
+
 module.exports = {
         setTokenCookie,
         restoreUser,
         requireAuth,
         isOrganizer,
         groupExists,
-        isOrgOrCo };
+        eventExists,
+        isOrgOrCo,
+        isAttendee };

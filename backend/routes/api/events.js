@@ -3,7 +3,7 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 const { EventImage, Event, Attendance, Group, Venue } = require('../../db/models');
-const { requireAuth, isOrganizer, groupExists, isOrgOrCo } = require('../../utils/auth');
+const { requireAuth, isAttendee, eventExists, isOrgOrCo } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -81,6 +81,24 @@ router.get('/:eventId', async (req, res, next) => {
             return next(err);
     }
     res.status(200).json(event);
+})
+
+router.post('/:eventId/images', requireAuth, eventExists, isAttendee,
+    async (req, res, next) => {
+        const {url, preview} = req.body;
+        const eventImage = await EventImage.create({
+            eventId: req.params.eventId,
+            url,
+            preview
+        });
+
+        const safeImg = {
+            id: eventImage.id,
+            url: eventImage.url,
+            preview: eventImage.preview
+        };
+
+        return res.json(safeImg);
 })
 
 module.exports = router;
