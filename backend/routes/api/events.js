@@ -93,7 +93,7 @@ router.get('/', async (req, res, next) => {
     if (name) where.name = name;
     if (type) where.type = type;
     if (startDate) where.startDate = startDate;
-    const events = await Event.findAll({
+    let events = await Event.findAll({
         include: [
         {
             model: Attendance,
@@ -124,6 +124,14 @@ router.get('/', async (req, res, next) => {
         group: ['Event.id', 'EventImages.url', 'Group.id', 'Venue.id'],
         order: ['id']
     });
+    let events1 = [];
+    for (let event of events) {
+        event = event.toJSON();
+        if ((!name || event.name == name) && (!type || event.type == type) && (!startDate || event.startDate == startDate)) {
+            events1.push(event)
+        }
+    }
+    events = events1.splice(offset, limit)
     res.status(200).json(events);
 })
 
