@@ -380,7 +380,7 @@ router.get('/:groupId/members', groupExists,
         if (req.user.id != group.organizerId && (!membership || membership.status != 'co-host')) {
             where.status = ['co-host', 'member']
         }
-        members = await User.findAll({
+        let members = await User.findAll({
             include: {
                 model: Membership, as: 'Membership',
                 attributes: ['status'],
@@ -447,7 +447,7 @@ router.put('/:groupId/membership', requireAuth, groupExists,
             if (req.user.id != group.organizerId && (!membership || membership.status != 'co-host')) return next(err);
         }
 
-        const err = new Error("Validations Error");
+        const err = new Error("Validation Error");
         err.status = 400;
         if (status == 'pending') {
             err.errors = {'status': 'Cannot change a membership status to pending'}
@@ -459,8 +459,6 @@ router.put('/:groupId/membership', requireAuth, groupExists,
             return next(err);
         }
 
-        let group = await Group.findByPk(req.params.groupId)
-        console.log(group)
         let membership = await Membership.findOne({
             where: {
             groupId: req.params.groupId,
@@ -469,9 +467,9 @@ router.put('/:groupId/membership', requireAuth, groupExists,
         });
 
         if (!membership) {
-            err.status = 400
-            err.errors = {"message": "Membership between the user and the group does not exist"};
-            return next(err);
+            let err1 = new Error("Membership between the user and the group does not exist")
+            err1.status = 404
+            return next(err1);
         }
         membership.set({
             status
@@ -484,8 +482,42 @@ router.put('/:groupId/membership', requireAuth, groupExists,
             memberId: membership.userId,
             status: membership.status
         }
-        console.log(safeMembership)
         return res.status(200).json(safeMembership);
+})
+
+router.delete('/:groupId/membership', requireAuth, groupExists,
+    async (req, res, next) => {
+
+        let {memberId} = req.body;
+        let group = await Group.findByPk(req.params.groupId);
+        let err = new Error('Forbidden');
+        err.status = 403;
+        if (group.organizerId != req.user.id && memberId != req.user.id) {
+            return next(err)
+        }
+
+        let user = await User.findByPk(memberId);
+        if (!user) {
+            err = new Error("Validation Error");
+            err.status = 400;
+            err.errors = {'memberId': "User couldn't be found"};
+            return next(err);
+        }
+
+        let membership = await Membership.findOne({
+            where: {
+            groupId: req.params.groupId,
+            userId: memberId
+            }
+        });
+
+        if (!membership) {
+            err = new Error("Membership does not exist for this User");
+            err.status = 404
+            return next(err);
+        }
+        await membership.destroy();
+        res.status(200).json({"message": "Successfully deleted"})
 })
 
 module.exports = router;
