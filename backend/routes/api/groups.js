@@ -367,4 +367,125 @@ router.post('/:groupId/events', requireAuth, groupExists, isOrgOrCo, validateEve
         res.status(200).json(safeEvent);
 })
 
+router.get('/:groupId/members', groupExists,
+    async (req, res, next) => {
+        let group = await Group.findByPk(req.params.groupId);
+        let membership = await Membership.findOne({
+            where: {
+            groupId: group.id,
+            userId: req.user.id
+            }
+        });
+        let where = {groupId: req.params.groupId};
+        if (req.user.id != group.organizerId && (!membership || membership.status != 'co-host')) {
+            where.status = ['co-host', 'member']
+        }
+        members = await User.findAll({
+            include: {
+                model: Membership, as: 'Membership',
+                attributes: ['status'],
+                where
+            },
+            attributes: ['id', 'firstName', 'lastName']
+        })
+
+        res.status(200).json({'Members': members});
+})
+
+router.post('/:groupId/membership', requireAuth, groupExists,
+    async (req, res, next) => {
+        let membership = await Membership.findOne({
+            where: {
+            groupId: req.params.groupId,
+            userId: req.user.id
+            }
+        });
+        if (membership) {
+            const err = membership.status == 'pending' ?
+                new Error("Membership has already been requested") : new Error("User is already a member of the group");
+            err.status = 400;
+            return next(err);
+        }
+        membership = await Membership.create({
+            groupId: req.params.groupId,
+            userId: req.user.id,
+            status: 'pending'
+        });
+        const safeMembership = {
+            memberId: membership.userId,
+            status: membership.status
+        }
+
+        res.status(200).json(safeMembership);
+})
+
+router.put('/:groupId/membership', requireAuth, groupExists,
+    async (req, res, next) => {
+
+        let {memberId, status} = req.body;
+        if (status == 'co-host') {
+            let group = await Group.findByPk(req.params.groupId);
+            if (req.user.id != group.organizerId) {
+                const err = new Error('Forbidden');
+                    err.title = 'Authorization required';
+                    // err.errors = { message: 'Forbidden' };
+                    err.status = 403;
+                    return next(err);
+            }
+        } else {
+            const err = new Error('Forbidden');
+                err.title = 'Authorization required';
+                // err.errors = { message: 'Forbidden' };
+                err.status = 403;
+            let group = await Group.findByPk(req.params.groupId);
+            let membership = await Membership.findOne({
+                where: {
+                groupId: group.id,
+                userId: req.user.id
+                }
+            });
+            if (req.user.id != group.organizerId && (!membership || membership.status != 'co-host')) return next(err);
+        }
+
+        const err = new Error("Validations Error");
+        err.status = 400;
+        if (status == 'pending') {
+            err.errors = {'status': 'Cannot change a membership status to pending'}
+            return next(err);
+        }
+        let user = await User.findByPk(memberId);
+        if (!user) {
+            err.errors = {'memberId': "User couldn't be found"};
+            return next(err);
+        }
+
+        let group = await Group.findByPk(req.params.groupId)
+        console.log(group)
+        let membership = await Membership.findOne({
+            where: {
+            groupId: req.params.groupId,
+            userId: memberId
+            }
+        });
+
+        if (!membership) {
+            err.status = 400
+            err.errors = {"message": "Membership between the user and the group does not exist"};
+            return next(err);
+        }
+        membership.set({
+            status
+        });
+        membership = await membership.save();
+
+        const safeMembership = {
+            id: membership.id,
+            groupId: membership.groupId,
+            memberId: membership.userId,
+            status: membership.status
+        }
+        console.log(safeMembership)
+        return res.status(200).json(safeMembership);
+})
+
 module.exports = router;
