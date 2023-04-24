@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       );
       User.hasMany(
         models.Membership,
-        {foreignKey: 'userId', onDelete: 'CASCADE',  hooks: true}
+        {as: 'Membership', foreignKey: 'userId', onDelete: 'CASCADE',  hooks: true}
       );
     }
   }
