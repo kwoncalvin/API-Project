@@ -115,7 +115,7 @@ const isOrgOrCo = async (req, _res, next) => {
       userId: req.user.id
     }
   });
-  if (!membership) return next(err);
+  if (!membership && req.user.id != group.organizerId) return next(err);
   if (req.user.id == group.organizerId || membership.status == 'co-host') return next();
   return next(err);
 };
@@ -136,6 +136,24 @@ const isAttendee = async (req, _res, next) => {
   return next();
 }
 
+const isOrgOrCoEv = async (req, _res, next) => {
+  const err = new Error('Forbidden');
+    err.title = 'Authorization required';
+    // err.errors = { message: 'Forbidden' };
+    err.status = 403;
+  let event = await Event.findByPk(req.params.eventId);
+  let group = await Group.findByPk(event.groupId);
+  let membership = await Membership.findOne({
+    where: {
+      groupId: group.id,
+      userId: req.user.id
+    }
+  });
+  if (!membership && req.user.id != group.organizerId) return next(err);
+  if (req.user.id == group.organizerId || membership.status == 'co-host') return next();
+  return next(err);
+};
+
 module.exports = {
         setTokenCookie,
         restoreUser,
@@ -144,4 +162,5 @@ module.exports = {
         groupExists,
         eventExists,
         isOrgOrCo,
-        isAttendee };
+        isAttendee,
+        isOrgOrCoEv };
