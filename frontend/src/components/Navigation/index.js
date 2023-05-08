@@ -33,13 +33,17 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </li>
-      {isLoaded && sessionLinks}
+    <ul className='nav-bar'>
+      <div>
+        <li>
+          <NavLink exact to="/">
+            MeetUp
+          </NavLink>
+        </li>
+      </div>
+      <div>
+        {isLoaded && sessionLinks}
+      </div>
     </ul>
   );
 }

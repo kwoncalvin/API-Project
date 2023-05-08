@@ -1,0 +1,9 @@
+.hidden {
+    display: none
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
