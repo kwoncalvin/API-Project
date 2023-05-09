@@ -1,4 +1,4 @@
-.section-1 {
+#section-1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -13,9 +13,38 @@
     width: 400px;
 }
 
-.section-2 {
+#section-2 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section-3-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.section-3-part p {
+    text-align: center;
+}
+
+.section-3-part > img {
+    width: 150px;
+}
+
+#section-4 {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
