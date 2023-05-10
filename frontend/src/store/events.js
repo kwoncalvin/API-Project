@@ -10,9 +10,10 @@ const loadEvents = (events) => {
   };
 };
 
-const loadSingleEvent = () => {
+const loadSingleEvent = (event) => {
   return {
-    type: GET_SINGLE_EVENT
+    type: GET_SINGLE_EVENT,
+    event
   };
 };
 
@@ -32,14 +33,16 @@ export const getSingleEvent = (id) => async (dispatch) => {
     }
 }
 
-let initialState = {allEvents: {}};
+let initialState = {allEvents: {}, singleEvent: {}};
 const eventReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-      case GET_EVENTS:
-        return {...state, allEvents: {...action.events}};
-      default:
-        return state;
+        case GET_EVENTS:
+            return {...state, allEvents: {...action.events}};
+        case GET_SINGLE_EVENT:
+            return {...state, singleEvent: {...action.event}};
+        default:
+            return state;
     }
   };
 

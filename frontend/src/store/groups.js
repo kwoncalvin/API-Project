@@ -10,9 +10,10 @@ const loadGroups = (groups) => {
   };
 };
 
-const loadSingleGroup = () => {
+const loadSingleGroup = (group) => {
   return {
-    type: GET_SINGLE_GROUP
+    type: GET_SINGLE_GROUP,
+    group
   };
 };
 
@@ -32,14 +33,16 @@ export const getSingleGroup = (id) => async (dispatch) => {
     }
 }
 
-let initialState = {allGroups: {}};
+let initialState = {allGroups: {}, singleGroup: {}};
 const groupReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-      case GET_GROUPS:
-        return {...state, allGroups: {...action.groups}};
-      default:
-        return state;
+        case GET_GROUPS:
+            return {...state, allGroups: {...action.groups}};
+        case GET_SINGLE_GROUP:
+            return {...state, singleGroup: {...action.group}};
+        default:
+            return state;
     }
   };
 

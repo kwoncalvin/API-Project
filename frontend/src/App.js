@@ -6,6 +6,8 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import GroupsListPage from "./components/GroupsListPage";
 import EventsListPage from "./components/EventsListPage";
+import SingleGroupPage from "./components/SingleGroupPage";
+import SingleEventPage from "./components/SingleEventPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,15 +21,21 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
       <Switch>
-        <Route exact path='/'>
-          <LandingPage/>
-        </Route>
-        <Route exact path='/groups'>
-          <GroupsListPage/>
-        </Route>
-        <Route exact path='/events'>
-          <EventsListPage/>
-        </Route>
+          <Route exact path='/'>
+              <LandingPage/>
+          </Route>
+          <Route exact path='/groups'>
+              <GroupsListPage/>
+          </Route>
+          <Route exact path="/groups/:groupId">
+              <SingleGroupPage/>
+          </Route>
+          <Route exact path='/events'>
+              <EventsListPage/>
+          </Route>
+          <Route exact path="/events/:eventId">
+              <SingleEventPage/>
+          </Route>
       </Switch>
       )}
     </>
