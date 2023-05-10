@@ -1,16 +1,16 @@
 import React from "react";
-import "./GroupsListPage.css";
+import "./EventsListPage.css";
 import { NavLink } from "react-router-dom";
-import { getGroups } from "../../store/groups";
+import { getEvents } from "../../store/events";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-export default function GroupsListPage() {
+export default function EventsListPage() {
     const dispatch = useDispatch();
-    const groups = useSelector((state) => state.groups);
+    const events = useSelector((state) => state.events);
 
     useEffect(() => {
-        dispatch(getGroups());
+        dispatch(getEvents());
     }, [dispatch]);
 
     return (
@@ -20,12 +20,12 @@ export default function GroupsListPage() {
                     <h2>Events</h2>
                     <h2>Groups</h2>
                 </div>
-                <h3>Groups in Meetup</h3>
+                <h3>Events in Meetup</h3>
             </div>
             <div>
                 <ul>
-                    {Object.values(groups.allGroups).map((group) => {
-                        return <h2>{group.name}</h2>
+                    {Object.values(events.allEvents).map((event) => {
+                        return <h2>{event.name}</h2>
                     })}
                 </ul>
             </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -10,11 +11,12 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential, password }))
+    dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
@@ -22,12 +24,15 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
+    if (!Object.keys(errors).length) {
+      history.push("/");
+    }
   };
 
   const demoLogin = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
+    dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
@@ -35,6 +40,9 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
+    if (!Object.keys(errors).length) {
+      history.push("/");
+    }
   }
 
   return (
