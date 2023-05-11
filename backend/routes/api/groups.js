@@ -133,7 +133,7 @@ router.get('/', async (req, res, next) => {
         },
         group: ['Group.id', 'GroupImages.url']
     });
-    res.status(200).json(groups);
+    res.status(200).json({'Groups': groups});
 })
 
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -171,7 +171,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         group.numMembers = numMembers
         groups.push(group);
     }
-    res.status(200).json(groups);
+    res.status(200).json({'Groups': groups});
 })
 
 router.get('/:groupId', groupExists, async (req, res, next) => {
@@ -334,7 +334,7 @@ router.get('/:groupId/events', requireAuth, groupExists,
             },
             group: ['Event.id', 'EventImages.url', 'Group.id', 'Venue.id']
         });
-        res.status(200).json(events);
+        res.status(200).json({"Events": events});
 })
 
 router.post('/:groupId/events', requireAuth, groupExists, isOrgOrCo, validateEvent,

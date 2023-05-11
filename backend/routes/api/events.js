@@ -2,7 +2,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 
 const { EventImage, Event, Attendance, Group, Venue, Membership, User } = require('../../db/models');
-const { requireAuth, isAttendee, eventExists, isOrgOrCoEv } = require('../../utils/auth');
+const { requireAuth, eventExists, isOrgOrCoEv } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -132,7 +132,7 @@ router.get('/', async (req, res, next) => {
         }
     }
     events = events1.splice(offset, limit)
-    res.status(200).json(events);
+    res.status(200).json({Events: events});
 })
 
 router.get('/:eventId', async (req, res, next) => {
@@ -175,9 +175,23 @@ router.get('/:eventId', async (req, res, next) => {
     res.status(200).json(event);
 })
 
-router.post('/:eventId/images', requireAuth, eventExists, isAttendee,
+router.post('/:eventId/images', requireAuth, eventExists,
     async (req, res, next) => {
         const {url, preview} = req.body;
+        let event = await Event.findByPk(req.params.eventId);
+        let group = await Group.findByPk(event.groupId);
+        const attendee = await Attendance.findOne({
+            where: {
+              userId: req.user.id,
+              eventId: req.params.eventId,
+              status: 'attending'
+            }
+          })
+          if (!attendee && req.user.id != group.organizerId) {
+            const err = new Error('Forbidden');
+            err.status = 403;
+            return next(err);
+          }
         const eventImage = await EventImage.create({
             eventId: req.params.eventId,
             url,

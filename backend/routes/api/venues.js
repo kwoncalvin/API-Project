@@ -47,7 +47,7 @@ router.put('/:venueId', requireAuth, validateVenue,
             userId: req.user.id
             }
         });
-        if (!membership || (req.user.id != group.organizerId && membership.status != 'co-host')) {
+        if ((!membership || membership.status != 'co-host') && req.user.id != group.organizerId) {
             return next(err);
         }
         const {address, city, state, lat, lng } = req.body;

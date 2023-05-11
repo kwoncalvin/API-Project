@@ -1,5 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
+import { NavLink } from "react-router-dom";
 
 function LandingPage() {
     return (
@@ -33,7 +34,7 @@ function LandingPage() {
             </div>
             <div id="section-3">
                 <div className="section-3-part">
-                    <h3>See all groups</h3>
+                    <NavLink to='/groups'>See all groups</NavLink>
                     <img
                         src='https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256'
                     >
@@ -44,7 +45,7 @@ function LandingPage() {
                     </p>
                 </div>
                 <div className="section-3-part">
-                    <h3>Find an event</h3>
+                    <NavLink to='/events'>Find an event</NavLink>
                     <img
                         src='https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256'
                     >
@@ -55,7 +56,7 @@ function LandingPage() {
                     </p>
                 </div>
                 <div className="section-3-part">
-                    <h3>Start a group</h3>
+                    <NavLink to='/groups/new'>Start a group</NavLink>
                     <img
                         src='https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256'
                     >

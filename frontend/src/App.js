@@ -4,10 +4,11 @@ import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
-import GroupsListPage from "./components/GroupsListPage";
-import EventsListPage from "./components/EventsListPage";
+import ListPage from "./components/ListPage";
 import SingleGroupPage from "./components/SingleGroupPage";
 import SingleEventPage from "./components/SingleEventPage";
+import CreateGroupPage from "./components/CreateGroupPage";
+import CreateEventPage from "./components/CreateEventPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,13 +26,22 @@ function App() {
               <LandingPage/>
           </Route>
           <Route exact path='/groups'>
-              <GroupsListPage/>
+              <ListPage type={'group'}/>
+          </Route>
+          <Route exact path="/groups/new">
+              <CreateGroupPage/>
           </Route>
           <Route exact path="/groups/:groupId">
               <SingleGroupPage/>
           </Route>
+          <Route exact path="/groups/:groupId/edit">
+              <CreateGroupPage/>
+          </Route>
+          <Route exact path="/groups/:groupId/events/new">
+              <CreateEventPage/>
+          </Route>
           <Route exact path='/events'>
-              <EventsListPage/>
+              <ListPage type={'event'}/>
           </Route>
           <Route exact path="/events/:eventId">
               <SingleEventPage/>
