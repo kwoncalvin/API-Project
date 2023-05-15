@@ -1,0 +1,38 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 20px 20px 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section {
+    padding: 5px;
+    justify-content: center;
+}
+
+
+.errors {
+    color: red;
+    padding: 5px 0 5px 0;
+    font-size: 14px;
+    justify-content: center;
+    width: 170px;
+    text-align: center;
+}
+
+#title {
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+
+#signupbut {
+    width: fit-content;
+}

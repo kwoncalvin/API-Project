@@ -99,7 +99,6 @@ export const postEventImage = (eventId, url, preview = false) => async (dispatch
 
 let initialState = {allEvents: {}, singleEvent: {}};
 const eventReducer = (state = initialState, action) => {
-    let newState;
     switch (action.type) {
         case GET_EVENTS:
             return {...state, allEvents: {...action.events}};

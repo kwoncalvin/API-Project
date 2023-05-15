@@ -19,9 +19,9 @@ export default function ListPage({type}) {
     }, [dispatch]);
 
     return (
-        <div>
-            <div id="bar">
-                <div>
+        <div className="wrapper">
+            <div className="list-head">
+                <div id='links'>
                     <NavLink to='/events'>Events</NavLink>
                     <NavLink to='/groups'>Groups</NavLink>
                 </div>
@@ -31,10 +31,21 @@ export default function ListPage({type}) {
                 <ul>
                     {type === 'group' ?
                         Object.values(groups).map((group) => {
-                            return <GroupPreview group={group}>{group.name}</GroupPreview>
+                            return (<GroupPreview
+                                className='display-wrapper'
+                                key={group.id}
+                                group={group}
+                                numEvents={
+                                    Object.values(events).filter((event) =>
+                                        event.groupId === group.id
+                                    ).length
+                                }
+                            />)
                         })
                         : Object.values(events).map((event) => {
-                            return <EventPreview event={event}>{event.name}</EventPreview>
+                            return <EventPreview
+                                className='display-wrapper'
+                                event={event}/>
                         })
                     }
                 </ul>

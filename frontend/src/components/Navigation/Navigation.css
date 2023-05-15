@@ -6,4 +6,49 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
+    align-self: center;
+    width: 95%;
+    padding-left: 0px
+}
+
+#logo {
+    width: fit-content;
+
+}
+
+#navlogo {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    color: rgb(15, 140, 179);
+    text-decoration: none;
+}
+#title {
+    font-size: 25px;
+}
+img {
+    height: 40px;
+}
+
+.nav-click {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(2, 9, 19)
+}
+
+
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#log-sign {
+    display: flex;
+    gap: 20px;
 }

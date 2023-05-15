@@ -1,0 +1,22 @@
+.list-head {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-size: 25px;
+}
+#links > * {
+    display: flex;
+
+    color: teal;
+    text-decoration: none;
+}
+#links {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.list-head h3 {
+    font-size: 15px;
+    color: grey;
+}

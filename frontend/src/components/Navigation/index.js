@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <li>
+      <li id='log-sign'>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -34,14 +34,18 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul className='nav-bar'>
-      <div>
+      <div id='logo' className="nav-click">
         <li>
-          <NavLink exact to="/">
-            MeetUp
+          <NavLink exact to="/"  id='navlogo'>
+            <img src='https://us.123rf.com/450wm/cotopaxi/cotopaxi1901/cotopaxi190100388/115953622-m-letter-blue-cool-gradient-flat-vector-logo-template.jpg'/>
+            <span id='title'>Meetdown</span>
           </NavLink>
         </li>
       </div>
-      <div>
+      <div id='profile'>
+        {sessionUser ? (
+        <NavLink exact to='/groups/new' className='navlink-big'>Start a new group</NavLink>
+        ) : null}
         {isLoaded && sessionLinks}
       </div>
     </ul>

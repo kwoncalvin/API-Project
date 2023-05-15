@@ -1,0 +1,19 @@
+.eventPreview {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid black;
+    margin-top: 12px;
+}
+
+.eventPreview > img {
+    width: 200px;
+    height: 200px;
+    margin: 0px;
+    margin-bottom: 12px;
+}
+
+h4 {
+    color: gray;
+}

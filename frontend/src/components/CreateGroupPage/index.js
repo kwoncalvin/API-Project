@@ -17,7 +17,7 @@ export default function CreateGroupPage() {
     const [name, setName] = useState(group ? group.name : "");
     const [about, setAbout] = useState(group ? group.about : "");
     const [type, setType] = useState(group? group.type : "");
-    const [privacy, setPrivacy] = useState(group? group.private: "");
+    const [visibility, setVisibility] = useState(group? group.private: "");
     const [image, setImage] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -29,11 +29,22 @@ export default function CreateGroupPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        let errs = {};
+        if (!city) errs.location = "Location is required";
+        if (!name) errs.name = "Name is required";
+        if (!about || about.length < 30) errs.about = "Description must be at least 30 characters long"
+        if (!type) errs.type = "Group Type is required";
+        if (!visibility) errs.visibility = "Visibility Type is required";
+        if (!(image.endsWith(".png") || image.endsWith(".jpg") || image.endsWith(".jpeg"))) {
+            errs.image = "Image URL must end in .png, .jpg, or .jpeg";
+        }
+
+
         const payload = {
             name,
             about,
             type,
-            private: privacy,
+            private: visibility,
             city,
             state,
         };
@@ -43,7 +54,7 @@ export default function CreateGroupPage() {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
-                        setErrors(data.errors);
+                        setErrors({...data.errors, ...errs});
                     }
             });
             if (group) {
@@ -54,7 +65,7 @@ export default function CreateGroupPage() {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
-                        setErrors(data.errors);
+                        setErrors({...data.errors, ...errs});
                     }
             });
         }
@@ -64,7 +75,7 @@ export default function CreateGroupPage() {
     }
 
     return (
-        <div>
+        <div className="wrapper">
             {isCreate ? (
                 <div>
                     <h3>BECOME AN ORGANIZER</h3>
@@ -95,8 +106,15 @@ export default function CreateGroupPage() {
                     <input
                         placeholder="City, STATE"
                         onChange={(e) => changeLocation(e.target.value)}
+                        defaultValue={`${city}, ${state}`}
                     >
                     </input>
+                    {errors.location && (
+                        <p>{errors.location}</p>
+                    )}
+                    {!errors.location && errors.state && (
+                        <p className="errors">{errors.state}</p>
+                    )}
                 </div>
 
                 <div>
@@ -111,8 +129,12 @@ export default function CreateGroupPage() {
                     <input
                         placeholder="What is your group name?"
                         onChange={(e) => setName(e.target.value)}
+                        defaultValue={name}
                     >
                     </input>
+                    {errors.name && (
+                        <p>{errors.name}</p>
+                    )}
                 </div>
 
                 <div>
@@ -131,8 +153,12 @@ export default function CreateGroupPage() {
                     <textarea
                         placeholder="Please write at least 30 characters"
                         onChange={(e) => setAbout(e.target.value)}
+                        defaultValue={about}
                     >
                     </textarea>
+                    {errors.about && (
+                        <p>{errors.about}</p>
+                    )}
                 </div>
 
                 <div>
@@ -142,25 +168,36 @@ export default function CreateGroupPage() {
                     <label>Is this an in person or online group?</label>
                     <select
                         onChange={(e) => setType(e.target.value)}
+                        defaultValue={type}
                     >
-                        <option value="">(select one)</option>
+                        <option value="" hidden>(select one)</option>
                         <option value="Online">Online</option>
                         <option value="In person">In person</option>
                     </select>
+                    {errors.type && (
+                        <p>{errors.type}</p>
+                    )}
                     <label>Is this group private or public?</label>
                     <select
-                        onChange={(e) => setPrivacy(e.target.value)}
+                        onChange={(e) => setVisibility(e.target.value)}
+                        defaultValue={visibility}
                     >
-                        <option value="">(select one)</option>
+                        <option value="" hidden>(select one)</option>
                         <option value="false">Public</option>
                         <option value="true">Private</option>
                     </select>
+                    {errors.visibility && (
+                        <p>{errors.visibility}</p>
+                    )}
                     <label>Please add in image url for your group below:</label>
                     <input
                         placeholder="Image Url"
                         onChange={(e) => setImage(e.target.value)}
                     >
                     </input>
+                    {errors.image && (
+                        <p>{errors.image}</p>
+                    )}
                 </div>
                 <button type='submit'> {isCreate ? "Create Group" : "Update Group"} </button>
             </form>

@@ -123,7 +123,6 @@ export const postGroupImage = (groupId, url, preview = false) => async (dispatch
 
 let initialState = {allGroups: {}, singleGroup: {}};
 const groupReducer = (state = initialState, action) => {
-    let newState;
     switch (action.type) {
         case GET_GROUPS:
             return {...state, allGroups: {...action.groups}};
