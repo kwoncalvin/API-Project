@@ -52,8 +52,8 @@ export default function SingleEventPage() {
                 </div>
             </div>
             <div>
-                <div>
-                    <img src={
+                <div className="event-page">
+                    <img id='eventImage' src={
                         event.previewImage ?
                             event.previewImage :
                             'https://deviniti.com/app/uploads/2021/10/09-20_DM-8186_EVENTS_01_MAIN-2-1024x682.png'}
