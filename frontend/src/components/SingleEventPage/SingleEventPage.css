@@ -1,0 +1,44 @@
+.eventPreview {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.event-page > #eventImage {
+    width: 400px;
+    height: 300px
+}
+
+.event-desc {
+    align-self: start;
+}
+
+.event-button {
+    display: flex;
+    justify-self: end;
+    gap: 20px
+}
+
+.event-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.event-page {
+    display: flex;
+    gap: 30px;
+    height: 320px;
+    margin: 0px
+}
+
+.event-desc > h2 {
+    margin: 0px;
+}
+
+.second-half {
+    width: 100%;
+    background-color: lightgray;
+}
