@@ -21,18 +21,18 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: 'gpimg1.com',
+        url: 'https://cdn.britannica.com/66/162466-131-47ADB66F/Man-butterfly-stroke-pool.jpg',
         preview: true
       },
       {
         groupId: 1,
         url: 'gpimg2.com',
-        preview: true
+        preview: false
       },
       {
         groupId: 2,
-        url: 'gpimg3.com',
-        preview: false
+        url: 'https://media.wired.com/photos/62feb60bcea7c0581e825cb0/master/w_2560%2Cc_limit/Fate-of-Game-Preservation-Games-GettyImages-1170073827.jpg',
+        preview: true
       },
       {
         groupId: 2,
@@ -41,8 +41,8 @@ module.exports = {
       },
       {
         groupId: 3,
-        url: 'gpimg5.com',
-        preview: false
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Tennis_Racket_and_Balls.jpg/1280px-Tennis_Racket_and_Balls.jpg',
+        preview: true
       },
       {
         groupId: 3,
@@ -62,7 +62,7 @@ module.exports = {
     options.tableName = 'GroupImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['gpimg1.com', 'gpimg2.com', 'gpimg3.com', 'gpimg4.com', 'gpimg5.com', 'gpimg6.com'] }
+      groupId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };

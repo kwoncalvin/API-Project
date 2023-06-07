@@ -73,6 +73,7 @@ img {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 #prof-drop {
@@ -80,4 +81,5 @@ img {
     color: gray;
     background-color: transparent;
     font-size: 20px;
+    cursor: pointer;
 }
