@@ -21,30 +21,30 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: 'Group1',
-        about: 'about group 1',
-        type: 'Online',
+        name: 'Swimming',
+        about: 'For if you like swimming',
+        type: 'In person',
         private: false,
-        city: 'City1',
-        state: 'State1'
+        city: 'Torrance',
+        state: 'CA'
       },
       {
         organizerId: 2,
-        name: 'Group2',
-        about: 'about group 2',
-        type: 'In person',
+        name: 'Video Games',
+        about: 'If you like games of any kind',
+        type: 'Online',
         private: true,
-        city: 'City2',
-        state: 'State2'
+        city: 'New York City',
+        state: 'NY'
       },
       {
         organizerId: 3,
-        name: 'Group3',
-        about: 'about group 3',
+        name: 'Tennis',
+        about: 'Enjoy rounds of tennis',
         type: 'Online',
         private: true,
-        city: 'City3',
-        state: 'State3'
+        city: 'Los Angeles',
+        state: 'CA'
       }
     ], {});
   },
@@ -59,7 +59,7 @@ module.exports = {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3'] }
+      name: { [Op.in]: ['Swimming', 'Video Games', 'Tennis'] }
     }, {});
   }
 };
