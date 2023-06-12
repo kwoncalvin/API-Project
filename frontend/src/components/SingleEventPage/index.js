@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import OpenModalButton from "../OpenModalButton/";
 import DeleteModal from "../DeleteModal";
+import './SingleEventPage.css';
 
 export default function SingleEventPage() {
     const dispatch = useDispatch();
@@ -37,83 +38,96 @@ export default function SingleEventPage() {
     if (!event) return <h1>Loading...</h1>;
 
     let startDate = event.startDate.split("T");
-    startDate = `${startDate[0]} · ${startDate[1].slice(0, -5)}`;
+    startDate = `${startDate[0]} · ${startDate[1].slice(0, -8)}`;
     let endDate = event.endDate.split("T");
-    endDate = `${endDate[0]} · ${endDate[1].slice(0, -5)}`;
+    endDate = `${endDate[0]} · ${endDate[1].slice(0, -8)}`;
 
     if (!group.Organizer) return <h1>Loading...</h1>;
     return (
-        <div className="wrapper">
-            <div>
-                <NavLink to='/events'>{'< Events'}</NavLink>
+        <>
+            <div className="wrapper" id='event-bar'>
                 <div>
-                    <h1>{event.name}</h1>
-                    <h3>Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</h3>
+                    <span>{"< "}</span>
+                    <NavLink className="back-to-list" to='/events'>Events</NavLink>
+                    <div className="event-title-info">
+                        <h1>{event.name}</h1>
+                        <h4>Hosted by {group.Organizer.firstName} {group.Organizer.lastName}</h4>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div className="event-page">
-                    <img id='eventImage' src={
-                        event.previewImage ?
-                            event.previewImage :
-                            'https://deviniti.com/app/uploads/2021/10/09-20_DM-8186_EVENTS_01_MAIN-2-1024x682.png'}
-                    />
+            <div className="second-half">
+                <div className="wrapper" id='event-content'>
                     <div>
-                        <div>
-                            <img></img>
-                            <div>
-                                <div>{group.name}</div>
-                                <div>{group.private ? "Private" : "Public"}</div>
-                            </div>
-                            <div>
+                        <div className="event-page">
+                            <img id='eventImage' src={
+                                event.previewImage ?
+                                    event.previewImage :
+                                    'https://deviniti.com/app/uploads/2021/10/09-20_DM-8186_EVENTS_01_MAIN-2-1024x682.png'}
+                            />
+                            <div className="event-side">
                                 <div>
-                                    <i className="fa-regular fa-clock"></i>
-                                    <div>
-                                        <div>
-                                            <span>START</span>
-                                            <span>{startDate}</span>
-                                        </div>
-                                        <div>
-                                            <span>END</span>
-                                            <span>{endDate}</span>
+                                    <div className="group-section">
+                                        <img src={
+                                            group.GroupImages.length > 0 ?
+                                                group.GroupImages[0].url :
+                                                'https://www.nicepng.com/png/detail/359-3593867_big-image-group-of-people-clipart.png'}
+                                        />
+                                        <div className="group-section-info">
+                                            <h3>{group.name}</h3>
+                                            <h4>{group.private ? "Private" : "Public"}</h4>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <i className="fa-solid fa-dollar-sign"></i>
-                                    <div>{event.price ? event.price : 'FREE'}</div>
-                                </div>
-                                <div>
-                                    <div>
-                                        <i class="fa-solid fa-map-pin"></i>
-                                        <div>{event.type}</div>
-                                    </div>
-                                    {user && user.id === group.Organizer.id ? (
-                                        <OpenModalButton
-                                            buttonText="Delete"
-                                            modalComponent={
-                                                <DeleteModal groupId={group.id} eventId={eventId}/>
+                                    <div id='event-details'>
+                                        <div className='event-detail-section'>
+                                            <i className="fa-regular fa-clock"></i>
+                                            <div id='start-end'>
+                                                <h4>START </h4>
+                                                <h4>END </h4>
+                                            </div>
+                                            <div id='event-dates'>
+                                                <h4>{startDate}</h4>
+                                                <h4>{endDate}</h4>
+                                            </div>
+                                        </div>
+                                        <div className="event-detail-section">
+                                            <i className="fa-solid fa-dollar-sign"></i>
+                                            <h4>{event.price ? event.price : 'FREE'}</h4>
+                                        </div>
+                                        <div id='delete-row'>
+                                            <div className="event-detail-section">
+                                                <i class="fa-solid fa-map-pin"></i>
+                                                <h4>{event.type}</h4>
+                                            </div>
+                                            {user && user.id === group.Organizer.id ? (
+                                                <div className="detail-button">
+                                                    <OpenModalButton
+                                                        buttonText="Delete"
+                                                        modalComponent={
+                                                            <DeleteModal groupId={group.id} eventId={eventId}/>
+                                                        }
+                                                    ></OpenModalButton>
+                                                </div>) : null
                                             }
-                                        ></OpenModalButton>) : null
-                                    }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="event-desc">
+                            <h2>Details</h2>
+                            <p>{event.description}</p>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <h2>Details</h2>
-                    <p>{event.description}</p>
-                </div>
-            </div>
-            <div>
-                {Object.keys(event).map((key) => {
+                    {/* <div>
+                        {Object.keys(event).map((key) => {
 
-                    return (<div>
-                        {key}: {event[key] ? event[key].toString() : 'none'}
-                        </div>); })
-                        }
+                            return (<div>
+                                {key}: {event[key] ? event[key].toString() : 'none'}
+                                </div>); })
+                                }
+                    </div> */}
+                </div>
             </div>
-        </div>
+        </>
     )
 }

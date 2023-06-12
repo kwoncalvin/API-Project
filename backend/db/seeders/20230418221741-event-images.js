@@ -21,32 +21,32 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'evimg1.com',
-        preview: true
+        url: 'https://deviniti.com/app/uploads/2021/10/09-20_DM-8186_EVENTS_01_MAIN-2-1024x682.png',
+        preview: false
       },
       {
         eventId: 1,
-        url: 'evimg2.com',
-        preview: false
+        url: 'https://grantsforus.io/wp-content/uploads/2022/04/1_ydhn1QPAKsrbt6UWfn3YnA.jpeg',
+        preview: true
       },
       {
         eventId: 2,
-        url: 'evimg3.com',
-        preview: false
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/The_Event_2010_Intertitle.svg/1200px-The_Event_2010_Intertitle.svg.png',
+        preview: true
       },
       {
         eventId: 2,
-        url: 'evimg4.com',
+        url: 'https://spokespersonsdigest.com/wp-content/uploads/sites/33/2020/09/events.jpg',
         preview: false
       },
       {
         eventId: 3,
-        url: 'evimg5.com',
-        preview: false
+        url: 'https://gulfbusiness.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-07-at-4.46.27-PM-e1602074875479.png',
+        preview: true
       },
       {
         eventId: 3,
-        url: 'evimg6.com',
+        url: 'https://hilltopgardens.com.mt/wp-content/uploads/sites/2/2023/01/180401_Hilltop-Gardens-new-scaled.jpg',
         preview: false
       },
     ], {});

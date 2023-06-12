@@ -1,13 +1,8 @@
-.groupPreview {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-}
-
 .group-page > #groupImage {
-    width: 400px;
-    height: 300px
+    width: 540px;
+    height: 370px;
+    border: 2px solid black;
+    border-radius: 2%;
 }
 
 .group-desc {
@@ -30,15 +25,53 @@
 .group-page {
     display: flex;
     gap: 30px;
-    height: 320px;
+    height: 390px;
     margin: 0px
 }
 
 .group-desc > h2 {
     margin: 0px;
+    padding: 10px 0px;
+}
+
+.group-desc > h4 {
+    margin: 0px;
+    padding: 5px 0px;
 }
 
 .second-half {
     width: 100%;
     background-color: lightgray;
+    display: flex;
+    justify-content: center;
+}
+
+#top-half-group {
+    padding-bottom: 0px;
+}
+
+#bottom-half-group {
+    padding-top: 0px;
+    word-wrap: break-word;
+}
+
+.back-to-list {
+    color: teal;
+}
+
+.group-event {
+    width: 60%;
+}
+
+.group-event > .eventpreview > img {
+    width: 20px;
+}
+
+.join-group-button > button {
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: rgb(224, 52, 133);
+    color: white;
 }

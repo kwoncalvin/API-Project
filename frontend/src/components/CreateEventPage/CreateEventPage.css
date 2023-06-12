@@ -1,0 +1,92 @@
+.event-create-size {
+    max-width: 700px;
+}
+
+.create-event-section {
+    border-bottom: 2px grey solid;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.create-event-section > h2 {
+    margin: 0px;
+}
+
+.create-event-section > p {
+    margin: 0px;
+    font-size: 14px;
+}
+
+.create-event-section > input {
+    margin: 5px 0px 20px 0px;
+    width: 50%;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.create-event-section > select {
+    margin: 5px 0px 20px 0px;
+    width: fit-content;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.create-event-section > label {
+    margin: 0px;
+    font-size: 14px;
+}
+
+.create-event-section > textarea {
+    margin: 5px 0px 20px 0px;
+    height: 150px;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#price-field {
+    display: flex;
+    margin: 5px 0px 20px 0px;
+    width: fit-content;
+}
+#price-field > p {
+    position: absolute;
+    margin: 0px;
+    padding-left: 2px;
+    font-size: 16px;
+}
+
+#price-field > input {
+    border: none;
+    text-align: right;
+    width: 70px;
+    padding-right: 5px;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#price-field > input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.create-event-section > .time-input {
+    width: fit-content
+}
+
+#create-event-button {
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb(224, 52, 133);
+    color: white;
+}
+
+#no-bottom {
+    border-bottom: none;
+}

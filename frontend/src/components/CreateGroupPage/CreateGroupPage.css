@@ -1,0 +1,79 @@
+.bottom-border {
+    border-bottom: solid grey 2px;
+}
+
+#create-top > h3 {
+    font-size: 16px;
+    margin: 0px;
+}
+
+#create-top > h2 {
+    padding: 10px 0px;
+    margin: 0px;
+}
+
+.create-group-section {
+    border-bottom: solid grey 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.create-group-section > h2 {
+    margin: 0px;
+    padding: 10px 0px 5px 0px;
+}
+
+.create-group-section > p {
+    margin: 0px;
+    max-width: 50%;
+    font-size: 14px;
+}
+
+.create-group-section > label {
+    margin: 0px;
+    max-width: 50%;
+    font-size: 14px;
+}
+
+.create-group-section > input {
+    margin: 20px 0px;
+    width: 35%;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.create-group-section > select {
+    margin: 5px 0px 20px 0px;
+    width: fit-content;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.create-group-section > textarea {
+    margin: 20px 0px;
+    width: 35%;
+    height: 150px;
+    background-color: rgb(177, 224, 238, 0.4);
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.create-group-section > ol {
+    padding: 0px 0px 0px 15px;
+    font-size: 14px;
+}
+
+#image-url {
+    margin-top: 5px;
+}
+
+#create-group-button {
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb(224, 52, 133);
+    color: white;
+}

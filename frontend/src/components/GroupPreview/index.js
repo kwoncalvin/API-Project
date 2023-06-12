@@ -16,9 +16,10 @@ export default function GroupPreview({group, numEvents}) {
             <div className="prev-content">
                 <h2>{group.name}</h2>
                 <h4>{group.city}, {group.state}</h4>
-                <p>{group.about}</p>
+                <p>{group.about.length > 300 ? group.about.slice(0, 300) + '...' : group.about}</p>
                 <h4>{numEvents} event{numEvents === 1 ? "" : "s"} · {group.private ? "Private" : "Public"}</h4>
             </div>
+
 
         </div>
     )

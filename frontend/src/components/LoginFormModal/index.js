@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -10,8 +10,18 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [disabled, setDisabled] = useState(true)
   const { closeModal } = useModal();
   const history = useHistory();
+
+
+  useEffect(() => {
+    if (credential.length < 4 || password.length < 6) {
+        setDisabled(true);
+    } else {
+        setDisabled(false);
+    }
+  }, [credential, password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +57,7 @@ function LoginFormModal() {
 
   return (
     <div className="box">
-      <h1>Log In</h1>
+      <h2>Log In</h2>
       <form className='form' onSubmit={handleSubmit}>
         <div className="section">
           <label>
@@ -55,7 +65,7 @@ function LoginFormModal() {
               type="text"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
-              required
+              className="modal-input"
               placeholder="Username or Email"
             />
           </label>
@@ -66,7 +76,7 @@ function LoginFormModal() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              className="modal-input"
               placeholder="Password"
             />
           </label>
@@ -74,7 +84,7 @@ function LoginFormModal() {
         {errors.credential && (
           <p className="errors">{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button className={disabled ? 'disabled-button': 'modal-button'} type="submit" disabled={disabled}>Log In</button>
         <button
             onClick={demoLogin}
             id="demo"

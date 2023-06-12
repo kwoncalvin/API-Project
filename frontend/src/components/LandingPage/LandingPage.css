@@ -1,17 +1,16 @@
 #section-1 {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 70px;
+    justify-content: space-between;
     align-items: center;
 }
 #section-1-txt {
-    width: 400px;
+    width: 460px;
 
 }
 
 #section-1-img {
-    width: 400px;
+    width: 460px;
     height: auto;
 }
 
@@ -63,9 +62,6 @@ h2 {
     margin-bottom: 0;
 }
 
-h1 {
-    font-size: 32px;
-}
 #howWorks {
     text-align: center;
     width: 40%;
@@ -78,4 +74,17 @@ h1 {
 
 .teal {
     color:teal;
+}
+
+.link-size {
+    font-size: 20px;
+}
+
+.join-meetup-button > button {
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: teal;
+    color: white;
 }

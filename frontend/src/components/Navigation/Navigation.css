@@ -7,10 +7,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 20px;
+    padding: 20px;
     align-self: center;
     width: 95%;
-    padding-left: 0px
+    margin: 0px;
+    border-bottom: 1px grey solid;
 }
 
 #logo {
@@ -54,6 +55,12 @@ img {
     gap: 20px;
 }
 
+#log-sign > button {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+}
+
 .profile-dropdown {
     position: absolute;
     padding: 10px;
@@ -62,6 +69,7 @@ img {
     margin: 10px;
     border: 1px solid black;
     border-radius: 3%;
+    background-color: white;
 }
 
 .fa-user-circle {

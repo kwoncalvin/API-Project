@@ -22,15 +22,15 @@ export default function DeleteModal({groupId, eventId}) {
     }
 
     return (
-        <div>
+        <div className="box">
             <h2>Confirm Delete</h2>
-            <h3>Are you sure you want to remove this
+            <h4>Are you sure you want to remove this
                 {isGroup ? "group" : "event"}?
-            </h3>
-            <button onClick={deleteItem}>
+            </h4>
+            <button className='modal-button' onClick={deleteItem}>
                 Yes (Delete {isGroup ? "Group" : "Event"})
             </button>
-            <button onClick={closeModal}>
+            <button className='modal-button-no' onClick={closeModal}>
                 No (Keep {isGroup ? "Group" : "Event"})
             </button>
         </div>
