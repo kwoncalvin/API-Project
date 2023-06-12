@@ -51,7 +51,7 @@ function LandingPage() {
                 </div>
             </div>
             <div id="section-2">
-                <h2>How MeetUp works</h2>
+                <h2>How Meetdown works</h2>
                 <p id='howWorks'>
                     Meet new people who share your interests through online and
                     in-person events. It’s free to create an account.
@@ -62,7 +62,7 @@ function LandingPage() {
                     <img className="smallImage"
                         src='https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256'
                     />
-                    <NavLink to='/groups' className='nav-click teal'>See all groups</NavLink>
+                    <NavLink to='/groups' className='nav-click teal link-size'>See all groups</NavLink>
                     <p>
                         Do what you love, meet others who love it,
                         find your community. The rest is history!
@@ -72,7 +72,7 @@ function LandingPage() {
                     <img className="smallImage"
                         src='https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256'
                     />
-                    <NavLink to='/events' className='nav-click teal'>Find an event</NavLink>
+                    <NavLink to='/events' className='nav-click teal link-size'>Find an event</NavLink>
                     <p>
                         Events are happening on just about any topic you can think of,
                         from online gaming and photography to yoga and hiking.
@@ -82,7 +82,7 @@ function LandingPage() {
                     <img className="smallImage"
                         src='https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256'
                     />
-                    <NavLink id='create-button' onClick={handleClick} to='/groups/new' className='nav-click'>Start a group</NavLink>
+                    <NavLink id='create-button' onClick={handleClick} to='/groups/new' className='nav-click link-size'>Start a group</NavLink>
                     <p>
                         You don’t have to be an expert to gather
                         people together and explore shared interests.
@@ -90,11 +90,10 @@ function LandingPage() {
                 </div>
             </div>
             {(user) ? null :
-                <div id="section-4">
+                <div id="section-4" className="join-meetup-button">
                     <OpenModalButton
-                        className="join-meetup-button"
                         buttonText="Join Meetup"
-                        modalComponent={<SignupFormModal />}
+                        modalComponent={<SignupFormModal/>}
                     ></OpenModalButton>
                 </div>
             }

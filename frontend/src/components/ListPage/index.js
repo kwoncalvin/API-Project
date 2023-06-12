@@ -19,20 +19,19 @@ export default function ListPage({type}) {
     }, [dispatch]);
 
     return (
-        <div className="wrapper">
+        <div className="wrapper list-size">
             <div className="list-head">
                 <div id='links'>
-                    <NavLink to='/events'>Events</NavLink>
-                    <NavLink to='/groups'>Groups</NavLink>
+                    <NavLink to='/events' className={type === 'event' ? "current-list" : "other-list"}>Events</NavLink>
+                    <NavLink to='/groups' className={type === 'group' ? "current-list" : "other-list"}>Groups</NavLink>
                 </div>
-                <h3>Groups in Meetup</h3>
+                <h3>{type === 'group' ? 'Groups' : 'Events'} in Meetup</h3>
             </div>
             <div>
-                <ul>
+                <ul id='elem-list'>
                     {type === 'group' ?
                         Object.values(groups).map((group) => {
                             return (<GroupPreview
-                                className='display-wrapper'
                                 key={group.id}
                                 group={group}
                                 numEvents={
@@ -44,7 +43,6 @@ export default function ListPage({type}) {
                         })
                         : Object.values(events).map((event) => {
                             return <EventPreview
-                                className='display-wrapper'
                                 event={event}/>
                         })
                     }

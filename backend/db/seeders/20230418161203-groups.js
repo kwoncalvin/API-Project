@@ -22,7 +22,7 @@ module.exports = {
       {
         organizerId: 1,
         name: 'Swimming',
-        about: 'For if you like swimming',
+        about: 'For if you like swimming. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         type: 'In person',
         private: false,
         city: 'Torrance',
@@ -31,7 +31,7 @@ module.exports = {
       {
         organizerId: 2,
         name: 'Video Games',
-        about: 'If you like games of any kind',
+        about: 'If you like games of any kind. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         type: 'Online',
         private: true,
         city: 'New York City',
@@ -40,7 +40,7 @@ module.exports = {
       {
         organizerId: 3,
         name: 'Tennis',
-        about: 'Enjoy rounds of tennis',
+        about: 'Enjoy rounds of tennis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         type: 'Online',
         private: true,
         city: 'Los Angeles',

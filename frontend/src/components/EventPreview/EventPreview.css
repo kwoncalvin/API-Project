@@ -1,19 +1,84 @@
 .eventPreview {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    border-bottom: 1px solid black;
-    margin-top: 12px;
+    gap: 15px;
+    padding-top: 12px;
+    padding-bottom: 0px;
+    margin: 0px;
 }
 
 .eventPreview > img {
-    width: 200px;
+    display: flex;
+    width: 270px;
     height: 200px;
     margin: 0px;
-    margin-bottom: 12px;
+    border: 1px black solid;
+    border-radius: 5%;
+    align-self: flex-start;
+}
+
+.eventPreview > .prev-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-top: 10px;
+}
+
+.event-prev-wrap {
+    border-bottom: 1px black solid;
+    cursor: pointer;
 }
 
 h4 {
     color: gray;
+}
+
+.prev-content > p {
+    margin: 0px;
+}
+
+.event-desc {
+    margin: 12px 0px;
+}
+
+.group-event-preview {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 20px;
+    margin: 0px;
+    padding-bottom: 0px;
+}
+
+.group-event-preview > img {
+    display: flex;
+    width: 200px;
+    height: 140px;
+    margin: 0px;
+    border: 1px black solid;
+    border-radius: 5%;
+    align-self: flex-start;
+}
+
+.group-event-preview > .prev-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-top: 10px;
+}
+
+.group-event-prev-wrap {
+    background-color: white;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 20px 0px;
+}
+
+.group-event-prev-wrap > .event-desc {
+    padding: 20px;
+    margin: 0px;
+    font-size: 14px;
+    padding-top: 10px;
 }

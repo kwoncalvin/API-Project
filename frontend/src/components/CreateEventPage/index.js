@@ -4,6 +4,7 @@ import { getSingleGroup } from "../../store/groups";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { postEvent, postEventImage } from "../../store/events";
+import './CreateEventPage.css'
 
 export default function CreateEventPage() {
     const dispatch = useDispatch();
@@ -65,12 +66,12 @@ export default function CreateEventPage() {
     }
     if (!group) return null;
     return (
-        <div className="wrapper">
+        <div className="wrapper event-create-size">
             <form onSubmit={handleSubmit}>
-                <div>
-                    <h1>
+                <div className="create-event-section">
+                    <h2>
                         Create an event for {group.name}
-                    </h1>
+                    </h2>
                     <p>
                         What is the name of your event?
                     </p>
@@ -79,10 +80,10 @@ export default function CreateEventPage() {
                         onChange={(e) => setName(e.target.value)}>
                     </input>
                     {errors.name && (
-                        <p>{errors.name}</p>
+                        <p className="red">{errors.name}</p>
                     )}
                 </div>
-                <div>
+                <div className="create-event-section">
                     <label>Is this an in person or online event?</label>
                     <select
                         onChange={(e) => setType(e.target.value)}
@@ -92,11 +93,11 @@ export default function CreateEventPage() {
                         <option value = "In person">In person</option>
                     </select>
                     {errors.type && (
-                        <p>{errors.type}</p>
+                        <p className="red">{errors.type}</p>
                     )}
                     <label>What is the price for your event?</label>
-                    <div>
-                        $
+                    <div id='price-field'>
+                        <p>$</p>
                         <input
                             type='number'
                             placeholder="0"
@@ -105,48 +106,51 @@ export default function CreateEventPage() {
                         </input>
                     </div>
                     {errors.price && (
-                        <p>{errors.price}</p>
+                        <p className="red">{errors.price}</p>
                     )}
                 </div>
-                <div>
+                <div className="create-event-section">
                     <label>When does your event start?</label>
                     <input
+                        className="time-input"
                         type='datetime-local'
                         onChange={(e) => setStartDate(e.target.value)}
                     ></input>
                     {errors.startDate && (
-                        <p>{errors.startDate}</p>
+                        <p className="red">{errors.startDate}</p>
                     )}
                     <label>When does your event end?</label>
                     <input
+                        className="time-input"
                         type='datetime-local'
                         onChange={(e) => setEndDate(e.target.value)}
                     ></input>
                     {errors.endDate && (
-                        <p>{errors.endDate}</p>
+                        <p className="red">{errors.endDate}</p>
                     )}
                 </div>
-                <div>
+                <div className="create-event-section">
                     <label>Please add in image url for your group below:</label>
                     <input
                         placeholder="Image URL"
                         onChange={(e) => setImage(e.target.value)}
                     ></input>
                     {errors.image && (
-                        <p>{errors.image}</p>
+                        <p className="red">{errors.image}</p>
                     )}
                 </div>
-                <div>
+                <div className="create-event-section" id='no-bottom'>
                     <label>Please describe your event:</label>
                     <textarea
                         placeholder="Please include at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                     {errors.description && (
-                        <p>{errors.description}</p>
+                        <p className="red">{errors.description}</p>
                     )}
                 </div>
                 <button
+                    id='create-event-button'
                     type='submit'
                 >Create Event</button>
             </form>

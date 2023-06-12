@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { postGroup, putGroup, postGroupImage } from "../../store/groups";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import './CreateGroupPage.css'
 
 export default function CreateGroupPage() {
     const dispatch = useDispatch();
@@ -10,14 +11,18 @@ export default function CreateGroupPage() {
     const params = useParams();
     const groupId = params.groupId;
     const isCreate = !groupId;
-    const group = useSelector((state) => state.groups.singleGroup);
+    const group = useSelector((state) => {
+        if (groupId == state.groups.singleGroup.id)
+            return state.groups.singleGroup;
+        return null;
+    });
 
     const [city, setCity] = useState(group ? group.city : "");
     const [state, setState] = useState(group ? group.state : "");
     const [name, setName] = useState(group ? group.name : "");
     const [about, setAbout] = useState(group ? group.about : "");
     const [type, setType] = useState(group? group.type : "");
-    const [visibility, setVisibility] = useState(group? group.private: "");
+    const [visibility, setVisibility] = useState(group? group.private : "");
     const [image, setImage] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -34,7 +39,7 @@ export default function CreateGroupPage() {
         if (!name) errs.name = "Name is required";
         if (!about || about.length < 30) errs.about = "Description must be at least 30 characters long"
         if (!type) errs.type = "Group Type is required";
-        if (!visibility) errs.visibility = "Visibility Type is required";
+        if (!(visibility === true || visibility === false)) errs.visibility = "Visibility Type is required";
         if (!(image.endsWith(".png") || image.endsWith(".jpg") || image.endsWith(".jpeg"))) {
             errs.image = "Image URL must end in .png, .jpg, or .jpeg";
         }
@@ -77,9 +82,9 @@ export default function CreateGroupPage() {
     return (
         <div className="wrapper">
             {isCreate ? (
-                <div>
-                    <h3>BECOME AN ORGANIZER</h3>
-                    <h2>
+                <div id='create-top'>
+                    <h3 className="teal">BECOME AN ORGANIZER</h3>
+                    <h2 className="bottom-border">
                         We'll walk you through a few steps to build your
                         local community
                     </h2>
@@ -94,7 +99,7 @@ export default function CreateGroupPage() {
                 </div>
             )}
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="create-group-section">
                     <h2>
                         First, set your group's location.
                     </h2>
@@ -106,18 +111,18 @@ export default function CreateGroupPage() {
                     <input
                         placeholder="City, STATE"
                         onChange={(e) => changeLocation(e.target.value)}
-                        defaultValue={`${city}, ${state}`}
+                        defaultValue={isCreate ? '' : `${city}, ${state}`}
                     >
                     </input>
                     {errors.location && (
-                        <p>{errors.location}</p>
+                        <p className="red">{errors.location}</p>
                     )}
                     {!errors.location && errors.state && (
                         <p className="errors">{errors.state}</p>
                     )}
                 </div>
 
-                <div>
+                <div className="create-group-section">
                     <h2>
                         What will your group's name be?
                     </h2>
@@ -129,15 +134,15 @@ export default function CreateGroupPage() {
                     <input
                         placeholder="What is your group name?"
                         onChange={(e) => setName(e.target.value)}
-                        defaultValue={name}
+                        defaultValue={isCreate ? '' : name}
                     >
                     </input>
                     {errors.name && (
-                        <p>{errors.name}</p>
+                        <p className="red">{errors.name}</p>
                     )}
                 </div>
 
-                <div>
+                <div className="create-group-section">
                     <h2>
                         Now describe what your group will be about
                     </h2>
@@ -153,53 +158,57 @@ export default function CreateGroupPage() {
                     <textarea
                         placeholder="Please write at least 30 characters"
                         onChange={(e) => setAbout(e.target.value)}
-                        defaultValue={about}
+                        defaultValue={isCreate ? '' : about}
                     >
                     </textarea>
                     {errors.about && (
-                        <p>{errors.about}</p>
+                        <p className="red">{errors.about}</p>
                     )}
                 </div>
 
-                <div>
+                <div className="create-group-section">
                     <h2>
                         Final steps...
                     </h2>
                     <label>Is this an in person or online group?</label>
                     <select
                         onChange={(e) => setType(e.target.value)}
-                        defaultValue={type}
+                        defaultValue={isCreate ? '' : type}
                     >
                         <option value="" hidden>(select one)</option>
                         <option value="Online">Online</option>
                         <option value="In person">In person</option>
                     </select>
                     {errors.type && (
-                        <p>{errors.type}</p>
+                        <p className="red">{errors.type}</p>
                     )}
                     <label>Is this group private or public?</label>
                     <select
                         onChange={(e) => setVisibility(e.target.value)}
-                        defaultValue={visibility}
+                        defaultValue={isCreate ? '' : visibility}
                     >
                         <option value="" hidden>(select one)</option>
                         <option value="false">Public</option>
                         <option value="true">Private</option>
                     </select>
                     {errors.visibility && (
-                        <p>{errors.visibility}</p>
+                        <p className="red">{errors.visibility}</p>
                     )}
-                    <label>Please add in image url for your group below:</label>
-                    <input
-                        placeholder="Image Url"
-                        onChange={(e) => setImage(e.target.value)}
-                    >
-                    </input>
-                    {errors.image && (
-                        <p>{errors.image}</p>
-                    )}
+                    {isCreate ? ( <>
+                        <label>Please add in image url for your group below:</label>
+                        <input
+                            id='image-url'
+                            placeholder="Image Url"
+                            onChange={(e) => setImage(e.target.value)}
+                        >
+                        </input>
+                        {errors.image && (
+                            <p className="red">{errors.image}</p>
+                        )}
+                    </>
+                    ) : null }
                 </div>
-                <button type='submit'> {isCreate ? "Create Group" : "Update Group"} </button>
+                <button id='create-group-button' type='submit'> {isCreate ? "Create Group" : "Update Group"} </button>
             </form>
         </div>
     )
