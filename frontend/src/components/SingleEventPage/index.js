@@ -35,7 +35,7 @@ export default function SingleEventPage() {
 
     if (Object.keys(event).length === 0) return null;
     if (Object.keys(group).length === 0) return null;
-    if (!event) return <h1>Loading...</h1>;
+
 
     let startDate = event.startDate.split("T");
     startDate = `${startDate[0]} · ${startDate[1].slice(0, -8)}`;
