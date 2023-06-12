@@ -43,6 +43,7 @@ export default function SingleEventPage() {
     endDate = `${endDate[0]} · ${endDate[1].slice(0, -8)}`;
 
     if (!group.Organizer) return <h1>Loading...</h1>;
+    if (!event.previewImage) return <h1>Loading...</h1>;
     return (
         <>
             <div className="wrapper" id='event-bar'>

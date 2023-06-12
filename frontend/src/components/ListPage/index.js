@@ -11,12 +11,33 @@ import EventPreview from "../EventPreview";
 export default function ListPage({type}) {
     const dispatch = useDispatch();
     const groups = useSelector((state) => state.groups.allGroups);
-    const events = useSelector((state) => state.events.allEvents)
+    const events = Object.values(useSelector((state) => state.events.allEvents))
 
     useEffect(() => {
         dispatch(getGroups());
         dispatch(getEvents());
     }, [dispatch]);
+
+    let pastEvents = [];
+    let upcomingEvents = [];
+    const getTimeEvents = (events) => {
+        pastEvents = [];
+        upcomingEvents = [];
+        for (let event of events) {
+            const current = new Date();
+            let eventDate = new Date(event.startDate);
+            if (current > eventDate) {
+                pastEvents.push(event);
+            } else {
+                upcomingEvents.push(event);
+            }
+        }
+        let sorter = (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate);
+        pastEvents.sort(sorter);
+        upcomingEvents.sort(sorter);
+    }
+
+    getTimeEvents(events);
 
     return (
         <div className="wrapper list-size">
@@ -41,7 +62,7 @@ export default function ListPage({type}) {
                                 }
                             />)
                         })
-                        : Object.values(events).map((event) => {
+                        : upcomingEvents.map((event) => {
                             return <EventPreview
                                 event={event}/>
                         })
