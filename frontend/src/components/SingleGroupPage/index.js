@@ -33,9 +33,10 @@ export default function SingleGroupPage() {
                 upcomingEvents.push(event);
             }
         }
-        let sorter = (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate);
-        pastEvents.sort(sorter);
-        upcomingEvents.sort(sorter);
+        let futureSorter = (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate);
+        let pastSorter = (a, b) => Date.parse(b.startDate) - Date.parse(a.startDate);
+        pastEvents.sort(pastSorter);
+        upcomingEvents.sort(futureSorter);
     }
 
     getTimeEvents(events);
