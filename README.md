@@ -32,6 +32,11 @@ This is my first full stack project where I made a clone of the website Meetup (
 
 ![Screenshot 2023-07-28 020457](https://github.com/kwoncalvin/API-Project/assets/122849162/3d7a3e45-f528-403e-b660-6b63e9f0894b)
 
+![image](https://github.com/kwoncalvin/API-Project/assets/122849162/2891142e-9c5d-4d69-a14d-c95216429788)
+
+![image](https://github.com/kwoncalvin/API-Project/assets/122849162/72222c12-72d9-4b5a-8b6e-768463fefa7a)
+
+
 
 
 
